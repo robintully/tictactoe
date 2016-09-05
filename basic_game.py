@@ -3,7 +3,6 @@ import os
 from random import shuffle
 
 banner = """
-
 \033[1;31m        __  __ _                           _____			\033[0m
 \033[1;31m    ___ \ \/ /| |_  _ _  ___  _ __   ___  |_   _|__ _  __  \033[0m
 \033[1;33m   / -_) >  < |  _|| '_|/ -_)| '  \ / -_)   | | / _` |/ _| \033[0m
@@ -12,7 +11,6 @@ banner = """
 \033[1;34m                  |_   _|___  ___ | || || |    			\033[0m
 \033[1;36m                    | | / _ \/ -_)|_||_||_|     			\033[0m
 \033[1;35m                    |_| \___/\___|(_)(_)(_)				\033[0m
-
 """
 
 available_spaces = [0,1,2,3,4,5,6,7,8]
@@ -127,7 +125,6 @@ def random_order_moves():
 	shuffle(sides)
 	shuffle(corners)
 	return [4] + corners + sides
-
 
 def is_winning_position(players_spaces):
 	for winning_combo in winning_board_combinations:
