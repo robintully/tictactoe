@@ -5,7 +5,7 @@ x_spaces,o_spaces = [],[]
 winning_board_combinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
 
 def print_board():
-	board_display = [" "," "," "," "," "," "," "," "," "]
+	board_display = ["1","2","3","4","5","6","7","8","9"]
 	for space in x_spaces:
 		board_display[space] = "X"
 	for space in o_spaces:
@@ -64,11 +64,18 @@ def determine_computer_move():
 			
 def get_user_move():
 	print("Please enter your desired move location")
-	return int(input())
-	
+	user_input = int(input())
+	if user_input - 1 in available_spaces:
+		return user_input
+	else:
+		return get_user_move()
+
 while True:
 	print_board()
-	commit_move(x_spaces,get_user_move())
+	if not available_spaces:
+		print("Tie Game!")
+		break
+	commit_move(x_spaces,int(get_user_move())- 1)
 	if is_winning_position(x_spaces):
 		print_board()
 		print ("You win!")
