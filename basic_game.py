@@ -1,14 +1,31 @@
+
+from time import sleep
+banner = """
+
+\033[1;31;40m        __  __ _                           _____			\033[0m
+\033[1;31;40m    ___ \ \/ /| |_  _ _  ___  _ __   ___  |_   _|__ _  __  \033[0m
+\033[1;33;40m   / -_) >  < |  _|| '_|/ -_)| '  \ / -_)   | | / _` |/ _| \033[0m
+\033[1;32;40m   \___|/_/\_\ \__||_|  \___||_|_|_|\___|   |_| \__,_|\__| \033[0m
+\033[1;34;40m                   _____           _  _  _     			\033[0m
+\033[1;34;40m                  |_   _|___  ___ | || || |    			\033[0m
+\033[1;36;40m                    | | / _ \/ -_)|_||_||_|     			\033[0m
+\033[1;35;40m                    |_| \___/\___|(_)(_)(_)				\033[0m
+
+"""
+
 available_spaces = [0,1,2,3,4,5,6,7,8]
 human_spaces,computer_spaces = [],[]
 winning_board_combinations = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
 
+# Fix invalid literal
+
 def print_board():
-	board_display = ["1","2","3","4","5","6","7","8","9"]
+	board_display =["| 1 |","| 2 |","| 3 |","| 4 |","| 5 |","| 6 |","| 7 |","| 8 |","| 9 |"]
 	for space in human_spaces:
-		board_display[space] = "X"
+		board_display[space] = "| \033[1;34;40mX\033[0m |"
 	for space in computer_spaces:
-		board_display[space] = "O"
-	print(board_display[0:3],board_display[3:6],board_display[6:9],sep='\n')
+		board_display[space] = "| \033[1;31;40mO\033[0m |"
+	print(''.join(board_display[0:3]),''.join(board_display[3:6]),''.join(board_display[6:9]),	sep='\n ============== \n')
 	
 def is_winning_position(players_spaces):
 	for winning_combo in winning_board_combinations:
@@ -62,23 +79,27 @@ def commit_move(players_spaces,index):
 def is_game_over(players_spaces):
 	if is_winning_position(players_spaces) or not available_spaces:
 		return True
+		
+def clearscreen(numlines=5):
+    import os
+    if os.name == "posix":
+        os.system('clear')
+    elif os.name in ("nt", "dos", "ce"):
+        os.system('CLS')
+    else:
+        print ('\n')* numlines
 
-def player_turn (players_spaces,move):
-	print_board()
-	commit_move(players_spaces,move)
 
+print(banner)
+sleep(2)
 while True:
+	clearscreen()
 	print_board()
 	commit_move(human_spaces,get_user_move())
 	if is_game_over(human_spaces):
-		print_board()
 		print("Game Over")
 		break
 	commit_move(computer_spaces,get_computer_move())	
 	if is_game_over(computer_spaces):
-		print_board()
 		print("Game Over")
 		break
-
-
-	
